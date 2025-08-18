@@ -17,21 +17,27 @@ import org.testng.annotations.AfterTest;
 
 public class Own_ebay {	
 	WebDriver driver;	 
-	  @BeforeTest
-	  public void beforeTest() throws InterruptedException {
-		  driver = new ChromeDriver();
-	      driver.get("https://signin.ebay.com/signin/?sgfl=lgp");	      
-	      driver.manage().window().maximize();
-		  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));	      
-	      WebElement name=driver.findElement(By.id("userid"));
-		    name.sendKeys("ravadapriyankael.6@gmail.com");
-		    driver.findElement(By.id("signin-continue-btn")).click();		    		    
-			WebElement pass=driver.findElement(By.id("pass"));
-		    pass.sendKeys("Priya@678");		    
-		    driver.findElement(By.id("sgnBt")).click();		     
+	 @BeforeTest
+	  public void beforeTest() {
+		 driver = new ChromeDriver();
+		 driver.get("https://www.ebay.com/");
+	     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+	     driver.manage().window().maximize();   
 	  }	
+	 @Test(priority = 1)
+	  public void login() throws InterruptedException {
+		  driver.get("https://signin.ebay.com/ws/eBayISAPI.dll?SignIn&sgfl=gh");
+	      WebElement name = driver.findElement(By.id("userid"));
+	      name.sendKeys("ravadapriyankael.6@gmail.com");
+	      driver.findElement(By.id("signin-continue-btn")).click();
+	      WebElement pass = driver.findElement(By.id("pass")); 
+	      pass.sendKeys("Priya@678");
+	      driver.findElement(By.id("sgnBt")).click();
+	      Thread.sleep(3000);
+	      
+	  }
   String[] ele={"Watch","Phone","Bag"};
-  @Test(priority = 1)
+  @Test(priority = 2)
   public void search() throws InterruptedException {
       for(String d:ele) {
           WebElement search=driver.findElement(By.id("gh-ac"));
@@ -39,8 +45,13 @@ public class Own_ebay {
           search.sendKeys(d);
           search.sendKeys(Keys.ENTER);          
       }
-  }     
-  @Test(priority=2)
+  }    
+	@AfterMethod
+  public void postCondsearch() {
+	  System.out.println("muliti search is executing successfully");
+  }
+
+  @Test(priority=3)
 	public void cart() throws InterruptedException {
 	  WebElement b= driver.findElement(By.id("gh-ac"));
 	  b.sendKeys("Bag");
@@ -54,15 +65,25 @@ public class Own_ebay {
       driver.findElement(By.id("atcBtn_btn_1")).click();
       driver.switchTo().window(tabs.get(0));
 	}  
-  @Test(priority=3)
+	@AfterMethod
+  public void postCondcart() {
+	  System.out.println("item added to cart");
+  }
+
+	
+  @Test(priority=4)
 	public void delcart() throws InterruptedException {	  
 	  WebElement cart= driver.findElement(By.xpath("//*[@id=\"gh\"]/nav/div[2]/div[5]/div/a/span/span"));
 	  cart.click();
 	  WebElement del= driver.findElement(By.cssSelector("button[data-test-id=\"cart-remove-item\"]"));
 	  del.click();
   } 
+	  public void postConddeleting() {
+	  System.out.println("item deleted from cart");
+  }
+
       
-  @Test(priority=4)
+  @Test(priority=5)
  	public void address() throws InterruptedException {
 	    driver.get("https://www.ebay.com/");
 	    Actions a=new Actions(driver);
@@ -90,13 +111,23 @@ public class Own_ebay {
 	 	n3.sendKeys("535142");   
  		driver.findElement(By.id("address_edit_submit_button")).click(); 				
    }
-  @Test(priority=5)
+	@AfterMethod
+  public void postCond_address() {
+	  System.out.println("address got updated");
+  }
+
+  @Test(priority=6)
  	public void shop_b_c() throws InterruptedException {
  	driver.findElement(By.xpath("//*[@id=\"gh\"]/section/div/div/div/button")).click();
  	driver.findElement(By.cssSelector("a[_sp=\"m570.l3409\"]")).click();	
  	driver.findElement(By.xpath("/html/body/div[2]/div[2]/section[2]/section/div/ul/li[5]/span/a")).click();	
-  }        
-  @Test(priority=6)
+  }  
+	  @AfterMethod
+  public void postCond_s_b_cat() {
+	  System.out.println("shop by cart funtionality");
+  }
+
+  @Test(priority=7)
   public void all_cat() throws InterruptedException {
       WebElement categoryDropdown=driver.findElement(By.id("gh-cat"));
       Select categorySelect=new Select(categoryDropdown);
@@ -106,13 +137,46 @@ public class Own_ebay {
       searchBox.sendKeys("Books"); // Replace with the actual search item
       searchBox.sendKeys(Keys.ENTER);    
 } 
-  @Test(priority = 7)
+	  @AfterMethod
+  public void postCond_all_cat() {
+	  System.out.println("all categories funtionality");
+  }
+
+	
+  @Test(priority =8)
   public void desc() {
       driver.get("https://www.ebay.com/itm/157228438909?itmmeta=01K2PZ164A30K3TQPBB2VDRCMX&hash=item249b8b957d:g:j6EAAOSwgFdoPe45&itmprp=enc%3AAQAKAAAAwMHg7L1Zz0LA5DYYmRTS30morWjwWMa86UyD37i8Y3yf7xUEQssG3dzAivS52GnCA8nY5GnRCOTNNqQh1LbTQgvemQhpDGTpPOxbhGn73gGxfzuPCq9Csb5sYSz2m%2BwvRXrwmSlAtoS%2BlDYqIacBGEO%2Bf0s00t1JaN%2FAD%2BHL%2B5FgkH1gnrsW%2F4MfOVmkQwJBJvaefodfmBXt9YpIYe1qxdCwGdCb0BTXQhsVhyCUtLpOSqxpfusm%2FB%2FJ3VCIx5ZLRQ%3D%3D%7Ctkp%3ABk9SR6LihN-VZg");
       WebElement desEle= driver.findElement(By.xpath("//*[@id=\"mainContent\"]/div[1]/div[1]/h1/span"));     
       String desc=desEle.getText();
       System.out.println("Description is:"+desc);
-  }			  
+  }	
+
+	@AfterMethod
+  public void postCond_desc() {
+	  System.out.println("fetched description");
+  }
+
+	
+	@Test(priority=9)
+  public void lang() throws InterruptedException {		
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("window.scrollBy(0,2000)");
+		WebElement country = driver.findElement(By.cssSelector("button[class=\"gf-flag__button\"]"));
+		country.sendKeys(Keys.ENTER);
+		driver.findElement(By.partialLinkText("France")).click();       
+		System.out.println("Language changed to France");
+}
+	
+   @Test(priority=10)
+  public void signout() throws InterruptedException {	
+	  public void signout() throws InterruptedException {	
+		    Actions a=new Actions(driver);
+			WebElement change=driver.findElement(By.xpath("//*[@id=\"gh\"]/nav/div[1]/span[1]/div/button"));
+			a.moveToElement(change).perform();
+			driver.findElement(By.xpath("//*[@id=\"s0-1-4-9-3[0]-0-9-dialog\"]/div/div/ul/li[3]/a")).click();
+		    }
+  }
+
 
   @AfterTest
   public void afterTest() {
