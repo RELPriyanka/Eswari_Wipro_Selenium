@@ -1,0 +1,30 @@
+Test Plan on Microsoft Teams page
+Test plan identifier=tp_teams_func
+
+•	Introduction=Checking Microsoft teams meeting page(ensure that   			 functionalities of front page which allows users to send messages,   	     	interact through screen sharing, video, audio and)
+
+•	Test items=text chat box, send button, audio(mute/unmute),video, Screen share , emojis, leave button , view tabs
+•	Features to be tested= camera(video), microphone(audio), text chat box, send button, Screen share , emojis, leave button
+•	Features not to be tested= all settings
+•	Approach=manual testing(black box testing)
+•	Item pass/fail criteria=count all passed and failed cases
+•	suspension criteria and resumption requirements=5/8/2025 suspension
+
+•	Test deliverables =
+Test cases Documents
+Test reports
+Test plan
+Test Summary Report
+Test bug report
+Test analysis report
+Review documents
+Bug analysis report
+
+Environmental needs=windows11pc, test link, excel, browser chrome, firefox, network
+Responsibilities= Eswari(prepare test cases and test analysis reports)
+
+Staffing and training needs=no
+Schedule=5/8/2025
+Risks and contingencies=no risk
+Approvals=manager
+
