@@ -1,0 +1,47 @@
+package testng2;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Assign1 {
+	public static void main(String[] args) {
+        
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://demoqa.com/buttons");
+        Thread.sleep(6000);
+	    	d.manage().window().maximize();
+
+        Actions act= new Actions(driver);
+
+        WebElement doubleClic= driver.findElement(By.id("doubleClickBtn"));
+        act.doubleClick(doubleClic).perform();
+        String doubleM= driver.findElement(By.id("doubleClickMessage")).getText();
+        System.out.println(doubleM);
+
+        WebElement rightClic= driver.findElement(By.id("rightClickBtn"));
+        act.contextClick(rightClic).perform();
+        String rightM= driver.findElement(By.id("rightClickMessage")).getText();
+        System.out.println(rightM);
+
+        WebElement clickB= driver.findElement(By.xpath("//button[text()='Click Me']"));
+        act.click(clickB).perform();
+        String clickM= driver.findElement(By.id("dynamicClickMessage")).getText();
+        System.out.println(clickM);
+
+
+        WebDriver d1=new ChromeDriver();	
+	    	d1.get("https://demoqa.com/droppable");
+	    	d1.manage().window().maximize();
+    		Actions act2=new Actions(d1);
+	    	WebElement source=d1.findElement(By.id("draggable"));
+		    WebElement target=d1.findElement(By.id("droppable"));
+		    act2.dragAndDrop(source, target).perform();
+
+        driver.quit();
+    }
+ 
+
+}
